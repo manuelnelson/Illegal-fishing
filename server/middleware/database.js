@@ -1,4 +1,3 @@
-let config = require('dotenv').config();
 const { Client } = require('pg')
 console.log(process.env.PGDATABASE)
 const client = new Client({

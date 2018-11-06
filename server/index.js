@@ -6,12 +6,13 @@ const configuration = require('feathers-configuration')
 const middleware = require('./middleware')
 const db = require('./middleware/database');
 const app = feathers()
+const config = require('dotenv').config();
 
 app.configure(configuration(path.join(__dirname, './')))
   .configure(middleware)
 
 const host = app.get('host')
-const port = app.get('port')
+const port = process.env.PORT || app.get('port');
 
 process.on('nuxt:build:done', async (err) => {
   if (err) {
