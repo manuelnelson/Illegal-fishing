@@ -1,11 +1,11 @@
 let config = require('dotenv').config();
 const { Client } = require('pg')
-console.log(config.parsed.PGDATABASE)
+console.log(process.env.PGDATABASE)
 const client = new Client({
-  user: config.parsed.PGUSER,
-  host: config.parsed.PGHOST,//'boat.colorado.edu',
-  database: config.parsed.PGDATABASE,//'vbd23',
-  password: config.parsed.PGPASSWORD,//'viirs2018',
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,//'boat.colorado.edu',
+  database: process.env.PGDATABASE,//'vbd23',
+  password: process.env.PGPASSWORD,//'viirs2018',
   port: 5432,
 }
 )
