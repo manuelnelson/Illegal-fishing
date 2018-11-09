@@ -75,15 +75,15 @@ export default {
   components: {
   },
   mounted() {
-    $Scriptjs('https://maps.googleapis.com/maps/api/js?key=AIzaSyAzBfPzy4A1crGJfeChgjnqZ3JvamQtKhg', () => {
+    $Scriptjs(`https://maps.googleapis.com/maps/api/js?key=AIzaSyAzBfPzy4A1crGJfeChgjnqZ3JvamQtKhg`, () => {
       this.initMap()
     })
   },
   methods: {
     initMap() {
       this.map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 20, lng: 0},
-        zoom: 3,
+        center: {lat: 8.4871397, lng: -13.2356005},
+        zoom: 5,
         disableDoubleClickZoom: true,
       }); 
       var that = this;
