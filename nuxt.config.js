@@ -53,7 +53,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    //baseURL: 'https://illegal-fishing.herokuapp.com/'
+    baseURL: 'https://illegal-fishing.herokuapp.com/'
     //baseURL: 'https://illegal-fishing.herokuapp.com/'
   },
 
