@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: "Illegal Fishing Dataset",
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -53,7 +53,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://illegal-fishing.herokuapp.com/'
+    //baseURL: 'https://illegal-fishing.herokuapp.com/'
+    //baseURL: 'https://illegal-fishing.herokuapp.com/'
   },
 
   /*

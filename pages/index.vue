@@ -140,7 +140,7 @@ export default {
               position: {lat: boat.lat_dnb, lng: boat.lon_dnb},
               map: that.map,
               title: `Date: ${new Date(boat.date_mscan).toDateString()}`,
-              icon: 'http://maps.google.com/mapfiles/kml/shapes/sailing.png'
+              icon: that.getIcon(boat)
             }))
           });
           var markerCluster = new MarkerClusterer(this.map, this.boats, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});        
@@ -148,6 +148,18 @@ export default {
         return;
       }
       this.showInputError = true; 
+    },
+    getIcon() {
+      switch(boat.type) {
+        case 1:
+          return 'http://maps.google.com/mapfiles/kml/shapes/sailing.png';
+        case 2: 
+          return 'http://maps.google.com/mapfiles/kml/shapes/target.png';
+        case 3:
+          return 'http://maps.google.com/mapfiles/kml/shapes/rainy.png';
+        case 8:
+          return 'http://maps.google.com/mapfiles/kml/shapes/triangle.png';
+      }
     },
     clearBoats() {
       this.boats.forEach(boat => {
@@ -174,6 +186,9 @@ export default {
 }
 .v-date-picker-table .v-btn.accent--text {
   color:#1867c0 !important;
+}
+.v-date-picker-header__value .accent--text {
+  color: #fff !important;
 }
 .interactive-map {
   height: calc(100vh - 140px);
