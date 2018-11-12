@@ -67,6 +67,7 @@ export default {
       valid: true,
       markers: [],
       boats: [],
+      markerCluster: null,
       showInputError: false,
       rect: null,
       isLoading: false
@@ -136,21 +137,28 @@ export default {
           let boats = result.data.results;
           let that = this;
           boats.forEach(boat => {
-            that.boats.push(new google.maps.Marker({
+            let marker = new google.maps.Marker({
               position: {lat: boat.lat_dnb, lng: boat.lon_dnb},
               map: that.map,
               title: `Date: ${new Date(boat.date_mscan).toDateString()}`,
               icon: that.getIcon(boat)
-            }))
+            });
+            that.boats.push(marker)
+            var infowindow = new google.maps.InfoWindow({
+              content: `<div class="icon-info"><date>Date: ${new Date(boat.date_mscan).toDateString()}</date><span>Type: ${that.getType(boat)}</span></div>`
+            });
+            marker.addListener('click', function() {
+              infowindow.open(that.map, marker);
+            });
           });
-          var markerCluster = new MarkerClusterer(this.map, this.boats, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});        
+          this.markerCluster = new MarkerClusterer(this.map, this.boats, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});        
         }
         return;
       }
       this.showInputError = true; 
     },
-    getIcon() {
-      switch(boat.type) {
+    getIcon(boat) {
+      switch(boat.qf_detect) {
         case 1:
           return 'http://maps.google.com/mapfiles/kml/shapes/sailing.png';
         case 2: 
@@ -161,7 +169,21 @@ export default {
           return 'http://maps.google.com/mapfiles/kml/shapes/triangle.png';
       }
     },
+    getType(boat) {
+      switch(boat.qf_detect) {
+        case 1:
+          return 'Boat';
+        case 2: 
+          return 'Weak';
+        case 3:
+          return 'Blurry';
+        case 8:
+          return 'Recurring Light';
+      }
+    },
     clearBoats() {
+      if(this.markerCluster)
+        this.markerCluster.clearMarkers();
       this.boats.forEach(boat => {
         boat.setMap(null);
       })
@@ -202,6 +224,13 @@ export default {
   &__map {
     width: 100%;
     height: 100%;
+  }
+  .icon-info {
+    color: black;
+    padding: 12px;
+    span {
+      display: block;
+    }
   }
 }
 </style>
